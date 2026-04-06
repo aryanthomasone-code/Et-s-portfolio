@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PORTFOLIO // ARYAN THOMAS</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Stable Opacity Fade System */
+        .fader-group {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: transparent;
+        }
+
+        .fade-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            opacity: 0;
+            z-index: 1;
+            transition: opacity 0.55s ease-in-out;
+            pointer-events: none;
+        }
+
+        .fade-img.active {
+            opacity: 1;
+            z-index: 2;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- SCRAP INTRO ANIMATION OVERLAY -->
+    <div class="scrap-overlay">
+        <div class="scrap-noise"></div>
+        <div class="scrap-fragment f1"></div>
+        <div class="scrap-fragment f2"></div>
+        <div class="scrap-fragment f3"></div>
+        <div class="scrap-fragment f4"></div>
+        <div class="scrap-glitch"></div>
+    </div>
+
+    <!-- GLOBAL HIGHER-RES GRAIN TEXTURE -->
+    <div class="global-grain"></div>
+
+    <!-- FIXED TOP NAV -->
+    <nav class="fixed-top-nav reveal">
+        <div class="nav-brand">IDX-01</div>
+        <div class="nav-links">
+            <a href="#about" class="nav-link">ABOUT</a>
+            <a href="#work" class="nav-link">WORK</a>
+            <a href="#contact" class="nav-link">CONTACT</a>
+        </div>
+    </nav>
+
+    <main class="page-frame">
+        <!-- HERO SECTION -->
+        <section id="top" class="hero sys-grid-bottom reveal">
+            <!-- Mars sphere: single planet element, layered behind text -->
+            <div class="mars-sphere" id="mars-sphere"></div>
+            <div class="hero-vignette"></div>
+            <div class="hero-content" id="hero-content">
+                <h1 class="hero-title">PORTFOLIO</h1>
+                <h2 class="hero-subtitle">ARYAN THOMAS</h2>
+            </div>
+        </section>
+
+        <!-- METADATA BAR -->
+        <div class="meta-bar-grid sys-grid-bottom reveal reveal-delay-2">
+            <div class="meta-col border-right">
+                <span class="meta-label">STATUS</span>
+                <span class="meta-val">AVAILABLE</span>
+            </div>
+            <div class="meta-col border-right">
+                <span class="meta-label">VERSION</span>
+                <span class="meta-val">1.0</span>
+            </div>
+            <div class="meta-col right-align">
+                <span class="meta-label">01</span>
+            </div>
+        </div>
+
+        <!-- 3-COLUMN ABOUT SECTION (IMAGE / TEXT / TOOLS) -->
+        <section id="about" class="about-section sys-grid-bottom">
+            <div class="about-grid">
+
+                <!-- Left: Title & Image strictly aligned to grid -->
+                <div class="about-left border-right slide-reveal-left">
+                    <h2 class="about-sect-title">ABOUT</h2>
+                    <div class="about-portrait-new">
+                        <img src="../My pic/me.jpg"
+                            alt="Aryan Thomas Portfolio Portrait"
+                            style="display:block; width:100%; height:100%; object-fit:cover; object-position: center;">
+                    </div>
+                </div>
+
+                <!-- Center: Text block -->
+                <div class="about-center border-right slide-reveal-right">
+                    <div class="about-text mono-text">
+                        <p>Hi, I’m Aryan Thomas, a third-year design student at the Dubai Institute of Design and
+                            Innovation. My work sits at the intersection of function-first thinking and a curiosity for
+                            artistic media.</p>
+                        <br>
+                        <p>I design across product, branding, and UI/UX, balancing experimentation with structure. I’m
+                            drawn to ideas that start off rough and unfiltered, then gradually evolve into something
+                            purposeful and functional—somewhere between a kid imagining what could exist and a part-time
+                            engineer figuring out how to make it real.</p>
+                        <br>
+                        <p>This portfolio is a selection of those explorations—curated multidisciplinary work that
+                            reflects that process.</p>
+                    </div>
+                </div>
+
+                <!-- Right: Vertical Tools Column -->
+                <div class="about-right slide-reveal-right delay-1">
+                    <div class="tools-label">TOOLS</div>
+
+                    <div class="tools-vert-grid">
+
+                        <div class="tool-vert-box">
+                            <svg class="sf-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                                <text x="12" y="16.5" font-family="Arial, sans-serif" font-weight="bold" font-size="10"
+                                    text-anchor="middle" fill="currentColor" stroke="none">Ai</text>
+                            </svg>
+                            <span class="sf-label">ILLUSTRATOR</span>
+                        </div>
+
+                        <div class="tool-vert-box">
+                            <svg class="sf-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                                <text x="12" y="16.5" font-family="Arial, sans-serif" font-weight="bold" font-size="10"
+                                    text-anchor="middle" fill="currentColor" stroke="none">Id</text>
+                            </svg>
+                            <span class="sf-label">INDESIGN</span>
+                        </div>
+
+                        <div class="tool-vert-box">
+                            <svg class="sf-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                                <text x="12" y="16.5" font-family="Arial, sans-serif" font-weight="bold" font-size="10"
+                                    text-anchor="middle" fill="currentColor" stroke="none">Ps</text>
+                            </svg>
+                            <span class="sf-label">PHOTOSHOP</span>
+                        </div>
+
+                        <div class="tool-vert-box">
+                            <svg class="sf-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                                <text x="12" y="16.5" font-family="Arial, sans-serif" font-weight="bold" font-size="10"
+                                    text-anchor="middle" fill="currentColor" stroke="none">Pr</text>
+                            </svg>
+                            <span class="sf-label">PREMIERE PRO</span>
+                        </div>
+
+                        <div class="tool-vert-box">
+                            <svg class="sf-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                                <text x="12" y="15" font-family="Arial, sans-serif" font-weight="bold" font-size="8"
+                                    text-anchor="middle" dominant-baseline="middle" fill="currentColor"
+                                    stroke="none">CSP</text>
+                            </svg>
+                            <span class="sf-label">CLIP STUDIO PAINT</span>
+                        </div>
+
+                        <div class="tool-vert-box">
+                            <svg class="sf-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                                <text x="12" y="16.5" font-family="Arial, sans-serif" font-weight="bold" font-size="12"
+                                    text-anchor="middle" fill="currentColor" stroke="none">F</text>
+                            </svg>
+                            <span class="sf-label">FUSION 360</span>
+                        </div>
+
+                        <div class="tool-vert-box">
+                            <svg class="sf-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                                </path>
+                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                            </svg>
+                            <span class="sf-label">SOLIDWORKS</span>
+                        </div>
+
+                        <div class="tool-vert-box">
+                            <!-- Rhino: clean geometric side-profile -->
+                            <svg class="sf-svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <!-- Body oval -->
+                                <ellipse cx="36" cy="38" rx="20" ry="12" />
+                                <!-- Neck + head -->
+                                <path d="M18 32 C12 28 10 20 16 15 C20 11 28 12 30 18 L32 28" />
+                                <!-- Horn -->
+                                <path d="M15 16 L8 5" />
+                                <!-- Ear -->
+                                <path d="M22 13 L24 7 L27 13" />
+                                <!-- Front leg -->
+                                <line x1="26" y1="48" x2="25" y2="58" />
+                                <!-- Back leg -->
+                                <line x1="46" y1="48" x2="46" y2="58" />
+                                <!-- Tail -->
+                                <path d="M56 36 C60 32 60 26 57 22" />
+                            </svg>
+                            <span class="sf-label">RHINO</span>
+                        </div>
+
+                        <div class="tool-vert-box">
+                            <svg class="sf-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <circle cx="12" cy="12" r="8"></circle>
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <line x1="12" y1="9" x2="16" y2="4"></line>
+                            </svg>
+                            <span class="sf-label">BLENDER</span>
+                        </div>
+
+                        <div class="tool-vert-box">
+                            <svg class="sf-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                                <text x="12" y="16.5" font-family="Arial, sans-serif" font-weight="bold" font-size="10"
+                                    text-anchor="middle" fill="currentColor" stroke="none">Fi</text>
+                            </svg>
+                            <span class="sf-label">FIGMA</span>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SELECTED WORKS INFO -->
+        <section id="work" class="works-header-container sys-grid-bottom reveal">
+            <h2 class="works-title">SELECTED WORKS // 2026</h2>
+            <div class="works-ref">REF_007</div>
+        </section>
+
+        <!-- WORK SECTION LAYOUT (7 Projects) -->
+        <section class="portfolio-group">
+
+            <div class="portfolio-row sys-grid-bottom">
+                <a href="project-omega.html" class="project-card col-8 border-right reveal"
+                    style="display: flex; text-decoration: none; --card-accent: #007BFF; --card-glow: rgba(0, 123, 255, 0.15); --card-shadow: rgba(0, 123, 255, 0.05);">
+                    <div class="stroke stroke-t"></div>
+                    <div class="stroke stroke-r"></div>
+                    <div class="stroke stroke-b"></div>
+                    <div class="stroke stroke-l"></div>
+                    <div class="project-meta sys-grid-bottom">
+                        <span>P-01</span>
+                        <span class="right-text mute-text">2024 — CONCEPTUAL</span>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-img-container large-img"
+                            data-images="../Project Omega Page 1/img-01.png,../Project Omega Page 1/img-02.png">
+                        </div>
+                    </div>
+                    <div class="project-title-bar sys-grid-top p-meta-inner">
+                        <h3 class="proj-headline title-hover" style="white-space: nowrap;">PROJECT OMEGA</h3>
+                    </div>
+                </a>
+
+                <a href="wood-bender.html" target="_blank" class="project-card col-4 reveal reveal-delay-1"
+                    style="display: flex; text-decoration: none; --card-accent: #9b59b6; --card-glow: rgba(155, 89, 182, 0.15); --card-shadow: rgba(155, 89, 182, 0.05);">
+                    <div class="stroke stroke-t"></div>
+                    <div class="stroke stroke-r"></div>
+                    <div class="stroke stroke-b"></div>
+                    <div class="stroke stroke-l"></div>
+                    <div class="project-meta sys-grid-bottom">
+                        <span>P-02</span>
+                        <span class="right-text mute-text">2023 — PRODUCT DESIGN</span>
+                    </div>
+                    <div class="project-content">
+                        <style>
+                            #wb-container .fade-img {
+                                object-fit: contain !important;
+                                object-position: 50% 50% !important;
+                                transform: scale(1.15) translate(-4%, 2%);
+                                /* Adjust translate values to tweak centering */
+                                transform-origin: center;
+                            }
+                        </style>
+                        <div id="wb-container" class="project-img-container tall-img"
+                            data-images="../Wood Bending/1.png,../Wood Bending/4.png">
+                        </div>
+                    </div>
+                    <div class="project-title-bar sys-grid-top p-meta-inner">
+                        <h3 class="proj-headline-sm title-hover">WOOD BENDER</h3>
+                    </div>
+                </a>
+            </div>
+
+            <div class="portfolio-row sys-grid-bottom">
+                <a href="cascader.html" target="_blank" class="project-card col-6 border-right reveal reveal-delay-1"
+                    style="display: flex; text-decoration: none; --card-accent: #00B7CC; --card-glow: rgba(0, 183, 204, 0.15); --card-shadow: rgba(0, 183, 204, 0.05);">
+                    <div class="stroke stroke-t"></div>
+                    <div class="stroke stroke-r"></div>
+                    <div class="stroke stroke-b"></div>
+                    <div class="stroke stroke-l"></div>
+                    <div class="project-meta sys-grid-bottom">
+                        <span>P-03</span>
+                        <span class="right-text mute-text">2023 — ENGINEERING</span>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-img-container tall-img"
+                            data-images="../Rotomolding machine/1.png,../Rotomolding machine/2.png">
+                        </div>
+                    </div>
+                    <div class="project-title-bar sys-grid-top p-meta-inner">
+                        <h3 class="proj-headline-sm title-hover">CASCADER</h3>
+                    </div>
+                </a>
+
+                <a href="noor-al-bahar.html" class="project-card col-6 reveal reveal-delay-2"
+                    style="display: flex; text-decoration: none; --card-accent: #FFA07A; --card-glow: rgba(255, 160, 122, 0.15); --card-shadow: rgba(255, 160, 122, 0.05);">
+                    <div class="stroke stroke-t"></div>
+                    <div class="stroke stroke-r"></div>
+                    <div class="stroke stroke-b"></div>
+                    <div class="stroke stroke-l"></div>
+                    <div class="project-meta sys-grid-bottom">
+                        <span>P-04</span>
+                        <span class="right-text mute-text">2022 — PRODUCT</span>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-img-container tall-img" data-images="../Fishnet/1.png,../Fishnet/2.png">
+                        </div>
+                    </div>
+                    <div class="project-title-bar sys-grid-top p-meta-inner">
+                        <h3 class="proj-headline-sm title-hover">NOOR AL BAHAR</h3>
+                    </div>
+                </a>
+            </div>
+
+            <div class="portfolio-row sys-grid-bottom">
+                <a href="visual-arts.html" target="_blank" class="project-card col-12 reveal delay-1"
+                    style="display: flex; text-decoration: none;">
+                    <div class="stroke stroke-t"></div>
+                    <div class="stroke stroke-r"></div>
+                    <div class="stroke stroke-b"></div>
+                    <div class="stroke stroke-l"></div>
+                    <div class="project-meta sys-grid-bottom">
+                        <span>P-05</span>
+                        <span class="right-text mute-text">2024 — CREATIVE DIRECTION</span>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-img-container large-img wide-img"
+                            data-images="../Visual Arts/Art works/4.png,../Visual Arts/Art works/3.png">
+                        </div>
+                    </div>
+                    <div class="project-title-bar sys-grid-top p-meta-inner">
+                        <h3 class="proj-headline-sm title-hover">VISUAL ARTS</h3>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- GET IN TOUCH / CLOSING TICKET -->
+        <section id="contact" class="contact-section reveal">
+            <div class="marquee-wrapper sys-grid-bottom">
+                <div class="marquee-content system-flicker">
+                    <div class="marquee-text">GET IN TOUCH // GET IN TOUCH // GET IN TOUCH // GET IN TOUCH //&nbsp;
+                    </div>
+                    <div class="marquee-text">GET IN TOUCH // GET IN TOUCH // GET IN TOUCH // GET IN TOUCH //&nbsp;
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-left border-right p-pad">
+                    <div class="ticket-block mb-1">
+                        <div class="ticket-label">LOCATION</div>
+                        <div class="ticket-val mono-val">DUBAI</div>
+                    </div>
+                    <div class="ticket-block">
+                        <div class="ticket-label">VERSION</div>
+                        <div class="ticket-val mono-val">1.0</div>
+                    </div>
+                </div>
+                <div class="contact-right p-pad">
+                    <div class="ticket-block mb-1">
+                        <div class="ticket-label">PRIMARY PROTOCOL</div>
+                        <a href="mailto:aryanthomasone@gmail.com"
+                            class="ticket-val link-hover mono-val primary-email">ARYANTHOMASONE@GMAIL.COM</a>
+                    </div>
+                    <div class="ticket-block mb-1">
+                        <div class="ticket-label">LINKEDIN</div>
+                        <a href="https://www.linkedin.com/in/aryan-thomas-3a8310290?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+                            target="_blank" class="ticket-val link-hover mono-val">ARYAN THOMAS</a>
+                    </div>
+                    <div class="ticket-block">
+                        <div class="ticket-label">BEHANCE</div>
+                        <a href="https://www.behance.net/aryanthomas2" target="_blank"
+                            class="ticket-val link-hover mono-val">ARYAN THOMAS</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const targetNode = document.querySelector(targetId);
+                if (targetNode) {
+                    targetNode.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        const sections = document.querySelectorAll('section[id]');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= (sectionTop - 300)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-link').forEach(li => {
+                li.classList.remove('active');
+                if (li.getAttribute('href').includes(current)) {
+                    li.classList.add('active');
+                }
+            });
+        });
+
+        const heroContent = document.getElementById('hero-content');
+        const marsSphere = document.getElementById('mars-sphere');
+        window.addEventListener('scroll', () => {
+            const scroll = window.scrollY;
+            if (scroll < window.innerHeight) {
+                if (heroContent) heroContent.style.transform = `translateY(${scroll * 0.15}px)`;
+                if (marsSphere) marsSphere.style.transform = `translateY(${scroll * 0.08}px)`;
+            }
+        });
+
+        document.querySelectorAll('.project-card').forEach(card => {
+            const imgContainer = card.querySelector('.project-img-container');
+            if (!imgContainer) return;
+
+            const rawData = imgContainer.getAttribute('data-images');
+            const imgList = rawData ? rawData.split(',') : [];
+
+            if (imgList.length > 0) {
+                let imagesHTML = imgList.map((src, i) => `<img class="fade-img ${i === 0 ? 'active' : ''}" src="${src}" alt="Project">`).join('');
+                imgContainer.innerHTML = `<div class="fader-group">${imagesHTML}</div>`;
+
+                if (imgList.length > 1) {
+                    let timer;
+                    let index = 0;
+
+                    card.addEventListener('mouseenter', () => {
+                        const images = imgContainer.querySelectorAll('.fade-img');
+                        index = 1 % images.length;
+                        images.forEach(img => img.classList.remove('active'));
+                        images[index].classList.add('active');
+
+                        clearInterval(timer);
+                        timer = setInterval(() => {
+                            images[index].classList.remove('active');
+                            index = (index + 1) % images.length;
+                            images[index].classList.add('active');
+                        }, 3000);
+                    });
+
+                    card.addEventListener('mouseleave', () => {
+                        clearInterval(timer);
+                        index = 0;
+                        const images = imgContainer.querySelectorAll('.fade-img');
+                        images.forEach(img => img.classList.remove('active'));
+                        images[0].classList.add('active');
+                    });
+                }
+            }
+        });
+
+        window.addEventListener('load', () => {
+            // Only play intro animation on first visit per session
+            const introPlayed = sessionStorage.getItem('introPlayed');
+            if (introPlayed) {
+                // Skip animation — hide overlay instantly, reveal content
+                const overlay = document.querySelector('.scrap-overlay');
+                if (overlay) { overlay.style.display = 'none'; }
+                document.body.classList.add('loaded');
+            } else {
+                sessionStorage.setItem('introPlayed', '1');
+                setTimeout(() => { document.body.classList.add('loaded'); }, 50);
+            }
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                    entry.target.classList.add('is-visible'); // keep legacy class for other animations
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.fade-element, .reveal, .slide-reveal-left, .slide-reveal-right').forEach(el => observer.observe(el));
+    </script>
+</body>
+
+</html>

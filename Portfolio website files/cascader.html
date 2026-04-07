@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CASCADER // ARYAN THOMAS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="project.css">
+    <style>
+        :root { --project-accent: #00B7CC; --accent: var(--project-accent); }
+        /* Fader Group */
+        .fader-group { position: relative; width: 100%; height: 100%; overflow: hidden; background: transparent; display: flex; justify-content: center; align-items: center; }
+        .fade-img { position: absolute; inset: 0; width: 90%; height: 90%; margin: auto; object-fit: contain; object-position: center; opacity: 0; z-index: 1; transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) !important; pointer-events: none; transform: none !important; filter: none !important; background-color: transparent !important; }
+        .fade-img.active { opacity: 1; z-index: 2; pointer-events: auto; }
+        /* Project Image Global override for non-VA */
+        .project-image { object-fit: contain !important; object-position: center !important; width: 90% !important; height: 90% !important; margin: auto !important; }
+        
+        /* Subtle Hover Overlay Override */
+        .grid-item:hover .img-wrap::after { opacity: 0 !important; }
+        
+        /* Lightbox */
+        .lightbox-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.9); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; cursor: zoom-out; }
+        .lightbox-overlay.active { opacity: 1; pointer-events: auto; }
+        .lightbox-img { max-width: 90vw; max-height: 90vh; object-fit: contain; transform: scale(0.95); transition: transform 0.3s ease; }
+        .lightbox-overlay.active .lightbox-img { transform: scale(1); }
+    </style>
+</head>
+<body class="project-page">
+
+    <div class="global-grain"></div>
+
+    <nav class="fixed-top-nav fade-element">
+        <div class="nav-brand">IDX-03 // ARCHIVE</div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">BACK TO HOME</a>
+        </div>
+    </nav>
+
+    <main class="page-frame project-frame">
+
+        <section class="proj-hero sys-grid-bottom fade-element">
+            <div class="proj-hero-bg" style="background-image: url('../Rotomolding machine/1.png');"></div>
+            <div class="hero-vignette"></div>
+            <div class="proj-hero-content">
+                <div class="proj-hero-left">
+                    <h1 class="proj-title" style="white-space: nowrap;">CASCADER</h1>
+                    <div class="proj-tagline">SCALABLE FABRICATION SYSTEM</div>
+                </div>
+                <div class="proj-hero-right mono-text mute-text">
+                    <p>YEAR // 2023</p>
+                    <p>TYPE // PRODUCT DESIGN</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECT SUMMARY (LAYOUT A) -->
+        <section class="proj-section sys-grid-bottom fade-element">
+            <div class="proj-split-grid align-center-y" style="gap:0; padding:0;">
+                <div class="proj-split-text border-right flex-col-center" style="padding: 5vw 4vw;">
+                    <div class="embedded-text-block">
+                        <h2 class="proj-section-title" style="font-size: clamp(2rem, 4vw, 5rem);">PROJECT SUMMARY</h2>
+                        <div class="proj-body-text">
+                            <p>The Cascader is a fabrication-driven project that explores the intersection of machine design, material behavior, and modular geometry. Developed through iterative prototyping, a custom-built rotational molding machine was used to produce polyhedral components that assemble into larger structures. Shaped by constraints and experimentation, the project emphasizes a hands-on approach to design where process, material, and form evolve together.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="proj-split-img flex-center">
+                    <div class="grid-item w-100 fade-element">
+                        <div class="media-container tall-ratio">
+                            <img src="../Rotomolding machine/2.png" class="project-image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 01 / OVERVIEW (LAYOUT B) -->
+        <section class="proj-section sys-grid-bottom fade-element">
+            <div class="proj-split-grid reverse align-center-y" style="gap:0; padding:0;">
+                <div class="proj-split-img flex-center border-right">
+                    <div class="grid-item w-100 fade-element">
+                        <div class="media-container tall-ratio">
+                            <img src="../Rotomolding machine/8.png" class="project-image">
+                        </div>
+                    </div>
+                </div>
+                <div class="proj-split-text flex-col-center" style="padding: 5vw 4vw;">
+                    <div class="embedded-text-block">
+                        <h2 class="proj-section-title">01 / OVERVIEW</h2>
+                        <div class="proj-body-text">
+                            <p>This project was developed as a second-year team exploration into rotational molding, combining machine design with the creation of a space-filling polyhedral system.</p>
+                            <p style="margin-top:1.5em;">Initially, the goal was to produce functional furniture using rotomolded components. However, due to early challenges in material distribution, the project shifted focus toward refining the Cascader (The rotomolding machine) and the geometry system itself. This project was done in a team by me, Yashvi Patel, Hana Kabeer, Rosemary Dessa and Jood Taha.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 02 / SYSTEM (LAYOUT A) -->
+        <section class="proj-section sys-grid-bottom fade-element">
+            <div class="proj-split-grid align-center-y" style="gap:0; padding:0;">
+                <div class="proj-split-text border-right flex-col-center" style="padding: 5vw 4vw;">
+                    <div class="embedded-text-block">
+                        <h2 class="proj-section-title">02 / SYSTEM</h2>
+                        <div class="proj-body-text" style="font-size: clamp(0.85rem, 1.1vw, 1.2rem);">
+                            <p><strong>Cascader Design</strong><br>The machine underwent multiple structural iterations to ensure stability during rotation. It was constructed using CNC-cut wooden components, with a final scrap plywood structure chosen for strength and availability. A chain and gear system sourced from bicycle components enabled manual rotation through a handle. Despite budget constraints, the machine remained fully operational and produced consistent molded forms.</p>
+                            <p style="margin-top:1em;"><strong>Material & Fabrication Strategy</strong><br>Resourcefulness guided material selection and fabrication. Scrap plywood was repurposed for structure, while budget was focused on molding materials, particularly Jesmonite for its durability, finish quality, cost efficiency and casting reliability. Iterative prototyping refined both form and material behavior during rotation, achieving functional outcomes while maintaining cost efficiency.</p>
+                            <p style="margin-top:1em;"><strong>Polyhedral System Development</strong><br>Alongside the machine, a space-filling polyhedral system was developed through multiple geometric iterations. A Grasshopper workflow identified connectable faces, leading to a final geometry that enabled modular assembly into larger structures. The system was tested through furniture applications, including a table and storage unit.</p>
+                            <p style="margin-top:1em;"><strong>Mold & Assembly Logic</strong><br>The mold design incorporated strategic openings for alignment, embedded magnet-based connections, and repeatable assembly across units, allowing individual molded components to seamlessly connect into larger configurations.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="proj-split-img flex-center">
+                    <div class="grid-item w-100 fade-element">
+                        <div class="media-container tall-ratio">
+                            <img src="../Rotomolding machine/19.jpeg" class="project-image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03 / DESIGN INTENT (LAYOUT C) -->
+        <!-- 03 / DESIGN INTENT (LAYOUT C) -->
+        <section class="proj-section sys-grid-bottom fade-element">
+            <div class="proj-split-grid align-center-y" style="gap:0; padding:0;">
+                <div class="proj-split-text border-right flex-col-center" style="padding: 5vw 4vw;">
+                    <div class="embedded-text-block">
+                        <h2 class="proj-section-title" style="margin-bottom: 1.5vw; font-size: clamp(2rem, 4vw, 5rem);">03 / DESIGN INTENT</h2>
+                        <div class="proj-body-text">
+                            <p>Cascader approaches manufacturing hardware as a designed object rather than just a utilitarian tool. We wanted to challenge the perception that industrial machinery must look chaotic or intimidating. By organizing the components around a central column and enclosing the heating logic within an aluminum shell, the machine becomes a cohesive sculptural element in the workspace, emphasizing clarity and safety without sacrificing performance.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="proj-split-img flex-center">
+                    <div class="grid-item w-100 fade-element">
+                        <div class="media-container tall-ratio">
+                            <img src="../Rotomolding machine/1.png" class="project-image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <!-- Overall Thoughts -->
+        <section class="proj-section sys-grid-bottom fade-element" style="padding: 5vw 4vw;">
+            <div class="gallery-carousel auto-carousel" id="carousel-overall">
+                <div class="carousel-track">
+                    <div class="carousel-item"><img src="../Rotomolding machine/1.png" class="project-image"></div>
+                    <div class="carousel-item"><img src="../Rotomolding machine/19.jpeg" class="project-image"></div>
+                    <div class="carousel-item"><img src="../Rotomolding machine/2.png" class="project-image"></div>
+                    <div class="carousel-item"><img src="../Rotomolding machine/20.jpeg" class="project-image"></div>
+                    <div class="carousel-item"><img src="../Rotomolding machine/3.png" class="project-image"></div>
+                    <div class="carousel-item"><img src="../Rotomolding machine/5.png" class="project-image"></div>
+                    <div class="carousel-item"><img src="../Rotomolding machine/6.png" class="project-image"></div>
+                    <div class="carousel-item"><img src="../Rotomolding machine/7.png" class="project-image"></div>
+                    <div class="carousel-item"><img src="../Rotomolding machine/8.png" class="project-image"></div>
+                    <div class="carousel-item"><img src="../Rotomolding machine/9.png" class="project-image"></div>
+                </div>
+            </div>
+            <div class="embedded-text-block" style="width: 100%; max-width: 100%; margin: 4vw 0 0 0; border-left: none; padding-left: 0;">
+                <h2 class="proj-section-title sm-title" style="margin-bottom: 1.5vw;">OVERALL THOUGHTS</h2>
+                <div class="proj-body-text" style="width: 100%; max-width: 100%;">
+                    <p>The Cascader project demonstrates a hands-on approach to design through making. This group project was the most fun and collaborative project I had done up until that point. The running around Dubai for parts and materials staying in the lab tryna refine the shapes and magnets, the entire machine breaking down a day before submission and putting it back together. It was great and taught us that combining mechanical systems, parametric geometry, and material experimentation, a foundation in fabrication-led design thinking.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="proj-nav-section fade-element p-pad">
+            <a href="wood-bender.html" class="proj-nav-link left-nav" style="--project-accent: #9B59B6;">
+                <span class="mono-text mute-text small-label">RETURN PROTOCOL</span>
+                <h3 class="nav-headline">WOOD BENDER</h3>
+            </a>
+            <a href="noor-al-bahar.html" class="proj-nav-link right-nav" style="--project-accent: #FFA07A;">
+                <span class="mono-text mute-text small-label">NEXT SEQUENCE</span>
+                <h3 class="nav-headline">NOOR AL BAHAR</h3>
+            </a>
+        </section>
+
+    </main>
+
+    <script>
+        window.addEventListener('load', () => { document.body.classList.add('loaded'); });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.fade-element').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Auto Carousel Logic
+        class AutoCarousel {
+            constructor(element) {
+                this.carousel = element;
+                this.items = Array.from(element.querySelectorAll('.carousel-item'));
+                this.currentIndex = 0;
+                if(this.items.length === 0) return;
+                this.update();
+                
+                if (element.intervalId) clearInterval(element.intervalId);
+                element.intervalId = setInterval(() => {
+                    this.currentIndex = (this.currentIndex + 1) % this.items.length;
+                    this.update();
+                }, 3000);
+            }
+            
+            update() {
+                const len = this.items.length;
+                this.items.forEach((item, index) => {
+                    item.className = 'carousel-item';
+                    let diff = index - this.currentIndex;
+                    if (diff > Math.floor(len / 2)) diff -= len;
+                    if (diff < -Math.floor(len / 2)) diff += len;
+                    
+                    if (diff === 0) {
+                        item.classList.add('active');
+                    } else if (diff === -1) {
+                        item.classList.add('prev-1');
+                    } else if (diff === 1) {
+                        item.classList.add('next-1');
+                    } else if (diff === -2) {
+                        item.classList.add('prev-2');
+                    } else if (diff === 2) {
+                        item.classList.add('next-2');
+                    } else if (diff < -2) {
+                        item.classList.add('hidden-left');
+                    } else {
+                        item.classList.add('hidden-right');
+                    }
+                });
+            }
+        }
+        document.querySelectorAll('.auto-carousel').forEach(car => new AutoCarousel(car));
+
+        // Lightbox Logic
+        const overlay = document.createElement('div');
+        overlay.className = 'lightbox-overlay';
+        const overlayImg = document.createElement('img');
+        overlayImg.className = 'lightbox-img';
+        overlay.appendChild(overlayImg);
+        document.body.appendChild(overlay);
+
+        document.querySelectorAll('.project-image').forEach(img => {
+            img.style.cursor = 'zoom-in';
+            img.addEventListener('click', (e) => {
+                const fader = img.closest('.fader-group');
+                let src = img.src;
+                if(fader) {
+                    const activeImg = fader.querySelector('.fade-img.active');
+                    if(activeImg) src = activeImg.src;
+                }
+                overlayImg.src = src;
+                overlay.classList.add('active');
+            });
+        });
+        overlay.addEventListener('click', () => {
+            overlay.classList.remove('active');
+        });
+    </script>
+</body>
+</html>

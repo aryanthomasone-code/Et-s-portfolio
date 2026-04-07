@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VISUAL ARTS // ARYAN THOMAS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="project.css">
+    <style>
+        :root {
+            --project-accent: #FF5A1F;
+            --accent: var(--project-accent);
+        }
+
+        /* Dynamic Text System */
+        .carousel-text-container {
+            position: relative;
+            min-height: 6em;
+            text-align: center;
+        }
+
+        .carousel-text {
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            pointer-events: none;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+        }
+
+        .carousel-text.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Vertical Variant Scroll Styles */
+        .variant-scroll-container {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            scroll-snap-type: y mandatory;
+            scrollbar-width: none;
+            /* Firefox */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .variant-scroll-container::-webkit-scrollbar {
+            display: none;
+            /* Chrome, Safari, Edge */
+        }
+
+        .variant-img,
+        .carousel-item img.project-image {
+            flex: 0 0 100%;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: contain !important;
+            scroll-snap-align: center;
+            display: block;
+            box-shadow: none !important;
+            border: none !important;
+            background: transparent !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .tight-carousel .carousel-item.prev-1 {
+            transform: translateX(-60%) scale(0.75);
+        }
+
+        .tight-carousel .carousel-item.next-1 {
+            transform: translateX(60%) scale(0.75);
+        }
+
+        .tight-carousel .carousel-item.prev-2 {
+            transform: translateX(-110%) scale(0.55);
+        }
+
+        .tight-carousel .carousel-item.next-2 {
+            transform: translateX(110%) scale(0.55);
+        }
+
+        /* EXISTING LIGHTBOX SYSTEM */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            cursor: zoom-out;
+        }
+
+        .lightbox-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox-img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .lightbox-overlay.active .lightbox-img {
+            transform: scale(1);
+        }
+
+        /* Glow effect for items with variants */
+        .design-item.active .variant-img {
+            /* Apply a massive, double-layered drop-shadow so the glow tracks the actual image alpha */
+            filter: drop-shadow(0 0 30px rgba(255, 165, 0, 1)) drop-shadow(0 0 80px rgba(255, 100, 0, 0.5)) !important;
+            transition: filter 0.4s ease;
+        }
+
+        /* Explicit text indicator for variants */
+        .design-item.active::after {
+            content: "↓ SCROLL FOR VARIANTS ↓";
+            position: absolute;
+            bottom: -45px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-mono, 'JetBrains Mono', monospace);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--project-accent, #FF5A1F);
+            text-shadow: 0 0 10px rgba(255, 90, 31, 0.8);
+            pointer-events: none;
+            white-space: nowrap;
+            animation: pulse-y 2s infinite ease-in-out;
+        }
+
+        /* Small Indicator for Variants */
+        .design-item::before {
+            content: "✦ VARIANTS";
+            position: absolute;
+            top: 2vw;
+            right: 2vw;
+            font-family: var(--font-mono, 'JetBrains Mono', monospace);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--project-accent, #FF5A1F);
+            border: 1px solid var(--project-accent, #FF5A1F);
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            opacity: 0.4;
+            transition: all 0.4s ease;
+            pointer-events: none;
+        }
+
+        .design-item.active::before {
+            opacity: 1;
+            box-shadow: 0 0 15px rgba(255, 90, 31, 0.4);
+            text-shadow: 0 0 8px rgba(255, 90, 31, 1);
+        }
+
+        @keyframes pulse-y {
+
+            0%,
+            100% {
+                opacity: 0.5;
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(5px);
+            }
+        }
+    </style>
+</head>
+
+<body class="project-page">
+
+    <div class="global-grain"></div>
+
+    <nav class="fixed-top-nav reveal">
+        <div class="nav-brand">IDX-05 // ARCHIVE</div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">BACK TO HOME</a>
+        </div>
+    </nav>
+
+    <main class="page-frame project-frame">
+
+        <section id="top" class="proj-hero reveal">
+            <div class="proj-hero-bg" style="background-image: url('../Visual Arts/Art works/9 (Opening Page).png');">
+            </div>
+            <div class="hero-vignette"></div>
+            <div class="proj-hero-content">
+                <div class="proj-hero-left">
+                    <h1 class="proj-title">VISUAL<br>ARTS</h1>
+                    <div class="proj-tagline">CREATIVE DIRECTION & EXPERIMENTAL MEDIA</div>
+                </div>
+                <div class="proj-hero-right mono-text mute-text">
+                    <p>YEAR // 2020–PRESENT</p>
+                    <p>TYPE // ARTIST</p>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section class="sys-grid-top reveal" style="width: 100%; text-align: center; padding: 10vw 4vw 4vw 4vw;">
+            <h2 class="proj-section-title" style="margin-bottom: 0; margin-top: 2vw; display: inline-block;">OVERVIEW
+            </h2>
+        </section>
+
+        <section class="proj-description sys-grid-bottom reveal" style="width: 100%; padding: 5vw 4vw;">
+            <div class="proj-desc-inner" style="max-width: 100%;">
+                <p class="proj-body-text" style="max-width: 100%;">A showcase of creative direction and experimental
+                    aesthetics. Exploring powerful thematic narratives through light, spatial context, and conceptual
+                    composition.</p>
+                <p class="proj-body-text" style="margin-top:1.5em; max-width: 100%;">By blending digital tools and
+                    physical media artifacts, the work recontextualizes familiar elements into immersive atmospheric
+                    environments.</p>
+            </div>
+        </section>
+
+        <!-- ART WORKS -->
+        <section class="proj-section sys-grid-bottom reveal" style="padding: 5vw 4vw;">
+            <div class="embedded-text-block" style="margin-bottom: 4vw;">
+                <h2 class="proj-section-title">01 / ART WORKS</h2>
+            </div>
+            <div class="gallery-carousel" id="carousel-art">
+                <div class="carousel-track">
+                    <div class="carousel-item" data-text-id="art-1"><img src="../Visual Arts/Art works/1.png"
+                            class="project-image"></div>
+                    <div class="carousel-item" data-text-id="art-2"><img src="../Visual Arts/Art works/2.png"
+                            class="project-image"></div>
+                    <div class="carousel-item" data-text-id="art-3"><img src="../Visual Arts/Art works/3.png"
+                            class="project-image"></div>
+                    <div class="carousel-item" data-text-id="art-4"><img src="../Visual Arts/Art works/4.png"
+                            class="project-image"></div>
+                    <div class="carousel-item" data-text-id="art-5"><img src="../Visual Arts/Art works/5.png"
+                            class="project-image"></div>
+                    <div class="carousel-item" data-text-id="art-6"><img src="../Visual Arts/Art works/6.png"
+                            class="project-image"></div>
+                    <div class="carousel-item" data-text-id="art-7"><img src="../Visual Arts/Art works/7.png"
+                            class="project-image"></div>
+                    <div class="carousel-item" data-text-id="art-8"><img src="../Visual Arts/Art works/8.png"
+                            class="project-image"></div>
+                </div>
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev-btn">❮</button>
+                    <button class="carousel-btn next-btn">❯</button>
+                </div>
+            </div>
+            <div class="carousel-text-container" style="margin-top: 3vw;">
+                <p class="carousel-text fade-text" id="art-1">These two posters were created for a class, before I had a
+                    solid understanding of typography. One of the main criticisms was the poor readability of the fonts.
+                    Despite that, they were rated highly for their distinct visual identity, standing out from the rest
+                    by not looking like conventional posters.</p>
+                <p class="carousel-text fade-text" id="art-2">These two posters were created for a class, before I had a
+                    solid understanding of typography. One of the main criticisms was the poor readability of the fonts.
+                    Despite that, they were rated highly for their distinct visual identity, standing out from the rest
+                    by not looking like conventional posters.</p>
+                <p class="carousel-text fade-text" id="art-3">A rapid character design commission exploring an
+                    unconventional, vivid palette inspired by JoJo's Bizarre Adventure. This older piece acts as a rare
+                    public snapshot of my comic-related work before NDA restrictions became my standard.</p>
+                <p class="carousel-text fade-text" id="art-4">This is fan art for one of my favorite shows, Ranking of
+                    Kings, created while it was airing. It follows a stretched composition style I was really drawn to
+                    at the time. This period also marked my transition from traditional to digital art, so it reflects a
+                    phase where I was still learning and experimenting with the medium.</p>
+                <p class="carousel-text fade-text" id="art-5">An early iteration of a Hades-inspired commission that
+                    eventually became the client's final choice. This project taught me the vital lesson of always
+                    retaining all iterations, as subjective client preference frequently overrides objective visual
+                    strength.</p>
+                <p class="carousel-text fade-text" id="art-6">Surreal documentation of spatial relationships. Using
+                    color, tone, and composition to construct immersive environments that exist between reality and
+                    interpretation.</p>
+                <p class="carousel-text fade-text" id="art-7">This is fan art of one of my favorite characters,
+                    Maliketh, the Black Blade from Elden Ring. I created a lot of game fan art, but this piece stands
+                    out as it marked my entry into commissions. Before this, art was purely a hobby for me. It’s a mixed
+                    media work, initially sketched on paper and then imported and colored digitally.</p>
+                <p class="carousel-text fade-text" id="art-8">A fast-paced architectural visualization commission
+                    generated through a blend of kitbashing and paintovers. While my core universe-building work remains
+                    under NDA, this showcases the rapid ideation process I use for early concept development.</p>
+            </div>
+        </section>
+
+        <!-- CARPET DESIGNS -->
+        <section class="proj-section sys-grid-bottom reveal" style="padding: 5vw 4vw;">
+            <div class="embedded-text-block" style="margin-bottom: 4vw;">
+                <h2 class="proj-section-title" style="margin-bottom: 0.5vw;">02 / CARPET DESIGNS</h2>
+                <div class="mono-text mute-text" style="font-size: 11px; opacity: 0.7; text-transform: none; letter-spacing: 0.05em;">All patterns are tileable — scroll vertically to explore variants</div>
+            </div>
+
+            <!-- Main Horizontal Carousel -->
+            <div class="gallery-carousel main-carousel tight-carousel" id="carousel-carpets">
+                <div class="carousel-track">
+                    <div class="carousel-item design-item" data-text-id="carpet-1">
+                        <div class="variant-scroll-container">
+                            <img src="../Visual Arts/Carpet Designs/1.png" class="project-image variant-img">
+                            <img src="../Visual Arts/Carpet Designs/Variants/Bu1.jpg" class="project-image variant-img">
+                            <img src="../Visual Arts/Carpet Designs/Variants/Bu2.jpg" class="project-image variant-img">
+                            <img src="../Visual Arts/Carpet Designs/Variants/Bu3.jpg" class="project-image variant-img">
+                            <img src="../Visual Arts/Carpet Designs/Variants/Bu4.jpg" class="project-image variant-img">
+                        </div>
+                    </div>
+                    <div class="carousel-item design-item" data-text-id="carpet-2">
+                        <div class="variant-scroll-container" style="background: transparent;">
+                            <img src="../Visual Arts/Carpet Designs/Variants/Replacement 1.png"
+                                class="project-image variant-img"
+                                style="object-fit: cover; transform: scale(1.2); width: 100%; height: 100%; padding: 0; margin: 0; border: none; box-shadow: none; background: transparent;">
+                            <img src="../Visual Arts/Carpet Designs/3.png" class="project-image variant-img"
+                                style="object-fit: contain; width: 100%; height: 100%; padding: 0; margin: 0; border: none; box-shadow: none; background: transparent;">
+                            <img src="../Visual Arts/Carpet Designs/Variants/emo variant 1.png"
+                                class="project-image variant-img"
+                                style="object-fit: cover; width: 100%; height: 100%; padding: 0; margin: 0; border: none; box-shadow: none; background: transparent;">
+                            <img src="../Visual Arts/Carpet Designs/Variants/emo variant 2.png"
+                                class="project-image variant-img"
+                                style="object-fit: cover; width: 100%; height: 100%; padding: 0; margin: 0; border: none; box-shadow: none; background: transparent;">
+                            <img src="../Visual Arts/Carpet Designs/Variants/emo variant 3.png"
+                                class="project-image variant-img"
+                                style="object-fit: cover; width: 100%; height: 100%; padding: 0; margin: 0; border: none; box-shadow: none; background: transparent;">
+                            <img src="../Visual Arts/Carpet Designs/Variants/emo variant 4.png"
+                                class="project-image variant-img"
+                                style="object-fit: cover; width: 100%; height: 100%; padding: 0; margin: 0; border: none; box-shadow: none; background: transparent;">
+                        </div>
+                    </div>
+                    <div class="carousel-item design-item" data-text-id="carpet-3">
+                        <div class="variant-scroll-container">
+                            <img src="../Visual Arts/Carpet Designs/5.png" class="project-image variant-img">
+                            <img src="../Visual Arts/Carpet Designs/Variants/Starry night.png"
+                                class="project-image variant-img">
+                            <img src="../Visual Arts/Carpet Designs/Variants/Starry night 2.png"
+                                class="project-image variant-img">
+                        </div>
+                    </div>
+                    <div class="carousel-item design-item" data-text-id="carpet-4">
+                        <div class="variant-scroll-container">
+                            <img src="../Visual Arts/Carpet Designs/6.png" class="project-image variant-img">
+                            <img src="../Visual Arts/Carpet Designs/7.png" class="project-image variant-img">
+                            <img src="../Visual Arts/Carpet Designs/Variants/Horse man 1.png"
+                                class="project-image variant-img">
+                            <img src="../Visual Arts/Carpet Designs/Variants/Horse man 2.png"
+                                class="project-image variant-img">
+                            <img src="../Visual Arts/Carpet Designs/Variants/Horse man 3.png"
+                                class="project-image variant-img">
+                        </div>
+                    </div>
+                    <div class="carousel-item design-item" data-text-id="carpet-5">
+                        <div class="variant-scroll-container">
+                            <img src="../Visual Arts/Carpet Designs/8.png" class="project-image variant-img">
+                            <img src="../Visual Arts/Carpet Designs/9.png" class="project-image variant-img">
+                            <img src="../Visual Arts/Carpet Designs/10.png" class="project-image variant-img">
+                            <img src="../Visual Arts/Carpet Designs/11.png" class="project-image variant-img">
+                        </div>
+                    </div>
+                    <div class="carousel-item design-item" data-text-id="carpet-6">
+                        <div class="variant-scroll-container">
+                            <img src="../Visual Arts/Carpet Designs/12.png" class="project-image variant-img">
+                            <img src="../Visual Arts/Carpet Designs/13.png" class="project-image variant-img">
+                            <img src="../Visual Arts/Carpet Designs/14.png" class="project-image variant-img">
+                            <img src="../Visual Arts/Carpet Designs/15.png" class="project-image variant-img">
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev-btn">❮</button>
+                    <button class="carousel-btn next-btn">❯</button>
+                </div>
+            </div>
+
+            <div class="carousel-text-container" style="margin-top: 3vw;">
+                <p class="carousel-text fade-text" id="carpet-1">This was the selected carpet design, developed in 2025
+                    with a few refinements along the way. The goal was to create a more modern prayer carpet, drawing
+                    inspiration from Islamic architecture and translating it into a contemporary pattern.After multiple
+                    iterations, this version was chosen. It is fully tileable, with size adjustments made per the
+                    manufacturers’ request. The prayer section, inspired by South Asian Islamic architecture, was added
+                    later based on their feedback. Many color variations were explored, but this one ultimately made it
+                    through the gauntlet.</p>
+                <p class="carousel-text fade-text" id="carpet-2">These carpets are iterations of the same pattern. While
+                    this version isn’t tileable, it was created as a test piece after a joke from the professor and
+                    manufacturers about making an “emo” carpet. Given my natural inclination toward punk and grunge
+                    aesthetics, this direction came quite easily. It wasn’t selected, but it served as a fun experiment,
+                    created through a mix of kitbashing and drawn-over color work. This was developed later on, after
+                    the competition switched manufacturers.</p>
+                <p class="carousel-text fade-text" id="carpet-3">This was one of the earlier carpet patterns I
+                    developed, it progressed quite far but didn’t make the final selection. It drew heavy inspiration
+                    from The Starry Night and went through multiple variations and colorways, with this version being
+                    the strongest, though it ultimately wasn’t chosen.</p>
+                <p class="carousel-text fade-text" id="carpet-4">To say I was on a kick with the dark carpet aesthetic
+                    would be an understatement. This piece was part of a collection for my hypothetical brand, where I
+                    pushed a more regal, “filthy rich” feel. It is fully tileable, featuring a floral centerpiece and
+                    corner elements that form an abstract rider on a horse when repeated. It’s one of my more
+                    interesting tileable patterns, though it was more of a personal exploration, especially since the
+                    inclusion of a figure made it less suitable as a prayer carpet.</p>
+                <p class="carousel-text fade-text" id="carpet-5">This piece was created by kitbashing rectangles and
+                    façade elements as part of a collection for my hypothetical brand, which was very well received. It
+                    is fully tileable and explores abstraction more than the other carpet designs. While the intended
+                    architectural influence is still present, it also stands on its own as a unique composition,
+                    balancing abstraction with a sense of controlled chaos, which was the direction I aimed for.</p>
+                <p class="carousel-text fade-text" id="carpet-6">This piece was created through a mix of Vizcom
+                    kitbashing, multiple iterations, and cleanups, resulting in a fully tileable floral pattern. It was
+                    developed as part of a hypothetical collection for my brand in class, but was well received by both
+                    the manufacturers and my professor, so I chose to keep it. I’m still unsure if it will secure
+                    another spot in the competition, but it presents an interesting take on the floral aesthetic leaning
+                    into a more chaotic, regal feel that aligns closely with my brand’s direction.</p>
+            </div>
+        </section>
+
+        <!-- DATA VISUALIZATION -->
+        <section class="proj-section sys-grid-bottom reveal" style="padding: 5vw 4vw;">
+            <div class="embedded-text-block" style="margin-bottom: 4vw;">
+                <h2 class="proj-section-title">03 / DATA VISUALIZATION</h2>
+            </div>
+            <div class="gallery-carousel" id="carousel-data">
+                <div class="carousel-track">
+                    <div class="carousel-item" data-text-id="data-1"><img src="../Visual Arts/Data Visualization/1.jpg"
+                            class="project-image"></div>
+                    <div class="carousel-item" data-text-id="data-2"><img src="../Visual Arts/Data Visualization/2.png"
+                            class="project-image"></div>
+                    <div class="carousel-item" data-text-id="data-3"><img src="../Visual Arts/Data Visualization/3.png"
+                            class="project-image"></div>
+                    <div class="carousel-item" data-text-id="data-4"><img src="../Visual Arts/Data Visualization/4.png"
+                            class="project-image"></div>
+                    <div class="carousel-item" data-text-id="data-5"><img src="../Visual Arts/Data Visualization/5.png"
+                            class="project-image"></div>
+                </div>
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev-btn">❮</button>
+                    <button class="carousel-btn next-btn">❯</button>
+                </div>
+            </div>
+
+            <div class="carousel-text-container" style="margin-top: 3vw;">
+                <p class="carousel-text fade-text" id="data-1">This infographic was created for a class project where my
+                    team researched scam calls. I designed it, using an aggressive color palette to reflect the urgency
+                    and severity of the issue. The aim was to present the information clearly while still conveying the
+                    impact, resulting in a clean yet visually striking composition.</p>
+                <p class="carousel-text fade-text" id="data-2">This project was also tied to the scam calls research,
+                    with the goal of clearly conveying insights gathered from the surveys we conducted.</p>
+                <p class="carousel-text fade-text" id="data-3">This project was also tied to the scam calls research,
+                    with the goal of clearly conveying insights gathered from the surveys we conducted.</p>
+                <p class="carousel-text fade-text" id="data-4">This poster was created for my product class, condensing
+                    a month of work into a single piece. It’s part of a four-poster set, summarizing the product’s use,
+                    visuals, components, and a flowchart of its operation.</p>
+                <p class="carousel-text fade-text" id="data-5">This poster was created for a project exploring types of
+                    symbiosis, which later evolved into designing hypothetical future technology. It reflects my core
+                    visual style, minimal color use, strong contrast, and a gritty aesthetic. Growing up listening to
+                    grunge, rock, and punk has deeply influenced how I approach my work, and that energy carries through
+                    in both the visuals and overall tone.</p>
+            </div>
+        </section>
+
+        <!-- ANIMATIONS -->
+        <section class="proj-section sys-grid-bottom reveal" style="padding: 5vw 4vw;">
+            <div class="embedded-text-block" style="margin-bottom: 4vw;">
+                <h2 class="proj-section-title">04 / ANIMATIONS</h2>
+            </div>
+            <div class="gallery-carousel" id="carousel-animations">
+                <div class="carousel-track" id="anim-track">
+                    <!-- Javascript Populated Core -->
+                </div>
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev-btn">❮</button>
+                    <button class="carousel-btn next-btn">❯</button>
+                </div>
+            </div>
+
+            <div class="carousel-text-container" style="margin-top: 3vw;" id="anim-texts">
+                <!-- Javascript Populated Texts -->
+            </div>
+
+            <script>
+                (function () {
+                    const animations = [
+                        {
+                            type: "local",
+                            src: "../Visual Arts/Videos/1.mp4",
+                            text: "This video was initially created for Project Omega, where we were asked to deconstruct a typical day. I chose to document my routine, getting ready, driving to university, and returning home. The piece was fully digitally animated in Clip Studio Paint."
+                        },
+                        {
+                            type: "local",
+                            src: "../Visual Arts/Videos/2.mp4",
+                            text: "This was my first animation for a university project centered on creating interactive art using p5.js. Although I had prior experience with animation, the tight timeframe pushed me to adopt a hybrid approach, combining simplified visuals, rotoscoping, and strong stylistic influence from Persona."
+                        },
+                        {
+                            type: "local",
+                            src: "../Visual Arts/Videos/Simulation video.mp4",
+                            text: "This video was produced for the Wood Benders course and presented alongside my final presentation. With prior experience in 3D animation using Blender, I developed this piece to clearly illustrate the step-by-step process of constructing the structure."
+                        },
+                        {
+                            type: "youtube",
+                            src: "https://youtu.be/EYpzO7S1Zjg",
+                            text: "This video was created for our Terra Carta submission, where we progressed significantly, though we ultimately did not win. It provides a concise overview of Project Sebastian and its core ideas. Through this experience, we had the opportunity to work with external mentors who shared valuable industry insights. Since then, I have continued developing my video editing skills, this being one of my earliest editing projects."
+                        },
+                        {
+                            type: "youtube",
+                            src: "https://youtu.be/N49vaKP1bvY",
+                            text: "Project Stark was a design strategy project developed in collaboration with Gulf Craft. This video functioned as a visual pitch, explaining the proposed technology and how it integrates into the yacht design process. It was presented alongside our final presentation to help bridge the gap between designers and clients which addressed a key finding that many costly changes arise post-production due to misaligned expectations. This was made using with a mix of exisitng clips and AI as it was something new at the time we wanted to experiment with."
+                        }
+                    ];
+
+                    const track = document.getElementById('anim-track');
+                    const textsContainer = document.getElementById('anim-texts');
+
+                    // Load YouTube IFrame API
+                    const ytScript = document.createElement('script');
+                    ytScript.src = "https://www.youtube.com/iframe_api";
+                    document.head.appendChild(ytScript);
+
+                    window.ytPlayers = {};
+
+                    window.onYouTubeIframeAPIReady = function () {
+                        document.querySelectorAll('.yt-embed').forEach((el) => {
+                            const vid = el.getAttribute('data-vid');
+                            const pid = el.id;
+                            window.ytPlayers[pid] = new YT.Player(pid, {
+                                videoId: vid,
+                                playerVars: { autoplay: 1, mute: 1, loop: 1, playlist: vid, controls: 0, playsinline: 1, enablejsapi: 1 },
+                                events: {
+                                    'onError': function (e) {
+                                        // Handle errors like 150, 101, 153 (embedding disabled)
+                                        if (e.data === 150 || e.data === 101 || e.data === 153) {
+                                            const iframe = e.target.getIframe();
+                                            if (!iframe) return;
+                                            const wrapper = iframe.parentElement;
+                                            wrapper.innerHTML = `
+                                            <div style="width: 100%; height: 100%; background: url('https://img.youtube.com/vi/${vid}/hqdefault.jpg') center/cover; position: relative;">
+                                                <a href="https://www.youtube.com/watch?v=${vid}" target="_blank" style="position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; background: rgba(0,0,0,0.4); text-decoration: none; cursor: pointer;">
+                                                    <svg width="60" height="60" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+                                                </a>
+                                            </div>
+                                        `;
+                                        }
+                                    }
+                                }
+                            });
+                        });
+                    };
+
+                    window.unmutedIndex = -1;
+
+                    window.muteVideo = function (i) {
+                        const btn = document.getElementById(`audio-btn-${i}`);
+                        if (!btn) return;
+                        btn.querySelector('.vol-icon-mute').style.display = 'block';
+                        btn.querySelector('.vol-icon-unmute').style.display = 'none';
+
+                        const item = document.querySelectorAll('#carousel-animations .carousel-item')[i];
+                        if (!item) return;
+
+                        const video = item.querySelector('video');
+                        const iframe = item.querySelector('iframe');
+
+                        if (video) video.muted = true;
+                        if (iframe && iframe.id && window.ytPlayers[iframe.id] && window.ytPlayers[iframe.id].mute) {
+                            window.ytPlayers[iframe.id].mute();
+                        }
+                    };
+
+                    window.unmuteVideo = function (i) {
+                        const btn = document.getElementById(`audio-btn-${i}`);
+                        if (!btn) return;
+                        btn.querySelector('.vol-icon-mute').style.display = 'none';
+                        btn.querySelector('.vol-icon-unmute').style.display = 'block';
+
+                        const item = document.querySelectorAll('#carousel-animations .carousel-item')[i];
+                        if (!item) return;
+
+                        const video = item.querySelector('video');
+                        const iframe = item.querySelector('iframe');
+
+                        if (video) video.muted = false;
+                        if (iframe && iframe.id && window.ytPlayers[iframe.id] && window.ytPlayers[iframe.id].unMute) {
+                            window.ytPlayers[iframe.id].unMute();
+                        }
+                    };
+
+                    window.toggleAudio = function (i, e) {
+                        if (e) e.stopPropagation();
+                        const isMuted = (window.unmutedIndex !== i);
+                        if (window.unmutedIndex !== -1 && window.unmutedIndex !== i) {
+                            muteVideo(window.unmutedIndex);
+                        }
+                        if (isMuted) {
+                            unmuteVideo(i);
+                            window.unmutedIndex = i;
+                        } else {
+                            muteVideo(i);
+                            window.unmutedIndex = -1;
+                        }
+                    };
+
+                    let trackHtml = '';
+                    let textHtml = '';
+
+                    animations.forEach((anim, i) => {
+                        const id = `anim-${i + 1}`;
+                        textHtml += `<p class="carousel-text fade-text" id="${id}">${anim.text}</p>`;
+
+                        let mediaHtml = '';
+                        if (anim.type === 'local') {
+                            mediaHtml = `<video src="${anim.src}" autoplay muted loop playsinline class="project-image" style="pointer-events: none;"></video>`;
+                        } else if (anim.type === 'youtube') {
+                            const match = anim.src.match(/(?:youtu\.be\/|youtube\.com\/(?:.*v=|.*\/))([^\?&]+)/);
+                            const vid = match ? match[1] : '';
+                            mediaHtml = `<div id="yt-player-${i}" class="yt-embed project-image" data-vid="${vid}" style="pointer-events: none; border: none; width: 100%; height: 100%;"></div>`;
+                        }
+
+                        trackHtml += `
+                        <div class="carousel-item" data-text-id="${id}">
+                            <div style="position: relative; width: 100%; height: 100%;">
+                                ${mediaHtml}
+                                <div class="video-overlay" style="position: absolute; inset: 0; z-index: 10; cursor: pointer;" onclick="this.parentElement.requestFullscreen()"></div>
+                                <div id="audio-btn-${i}" class="audio-toggle-btn" style="position: absolute; bottom: 15px; right: 15px; z-index: 20; background: rgba(0,0,0,0.5); border-radius: 50%; padding: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;" onclick="toggleAudio(${i}, event)">
+                                    <svg class="vol-icon-mute" style="display:block;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                        <line x1="23" y1="9" x2="17" y2="15"></line>
+                                        <line x1="17" y1="9" x2="23" y2="15"></line>
+                                    </svg>
+                                    <svg class="vol-icon-unmute" style="display:none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    });
+
+                    track.innerHTML = trackHtml;
+                    textsContainer.innerHTML = textHtml;
+                })();
+            </script>
+        </section>
+
+        <section class="proj-nav-section reveal p-pad">
+            <a href="index.html" class="proj-nav-link left-nav">
+                <span class="mono-text mute-text small-label">RETURN PROTOCOL</span>
+                <h3 class="nav-headline">WORKS INDEX</h3>
+            </a>
+            <a href="#top" class="proj-nav-link right-nav"
+                onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+                <span class="mono-text mute-text small-label">NEXT SEQUENCE</span>
+                <h3 class="nav-headline">GO TO TOP</h3>
+            </a>
+        </section>
+
+    </main>
+
+    <script>
+        window.addEventListener('load', () => { document.body.classList.add('loaded'); });
+
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    entry.target.querySelectorAll('.reveal-img, .gallery-carousel').forEach(el => el.classList.add('is-visible'));
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Carousel Initializer
+        class GalleryCarousel {
+            constructor(element) {
+                this.carousel = element;
+                this.track = element.querySelector('.carousel-track');
+                this.items = Array.from(element.querySelectorAll('.carousel-item'));
+                this.prevBtn = element.querySelector('.prev-btn');
+                this.nextBtn = element.querySelector('.next-btn');
+
+                // Get parent section for text container
+                this.parentSection = element.closest('.proj-section');
+                this.textContainer = this.parentSection?.querySelector('.carousel-text-container');
+
+                // For main carousel with variants
+                this.isMainCarpetCarousel = element.id === 'carousel-carpets';
+                this.isVariantCarousel = element.classList.contains('variant-carousel');
+
+                this.currentIndex = 0;
+
+                this.prevBtn.addEventListener('click', () => this.move(-1));
+                this.nextBtn.addEventListener('click', () => this.move(1));
+
+                this.items.forEach((item, index) => {
+                    item.addEventListener('click', () => {
+                        this.currentIndex = index;
+                        this.update();
+                    });
+                });
+
+                this.update();
+            }
+
+            move(dir) {
+                this.currentIndex += dir;
+                const len = this.items.length;
+                if (this.currentIndex < 0) this.currentIndex = len - 1;
+                if (this.currentIndex >= len) this.currentIndex = 0;
+                this.update();
+            }
+
+            update() {
+                const len = this.items.length;
+                this.items.forEach((item, index) => {
+                    item.className = 'carousel-item';
+
+                    let diff = index - this.currentIndex;
+
+                    // Normalize the difference for circular array
+                    if (diff > Math.floor(len / 2)) diff -= len;
+                    if (diff < -Math.floor(len / 2)) diff += len;
+
+                    if (diff === 0) {
+                        item.classList.add('active');
+                    } else if (diff === -1) {
+                        item.classList.add('prev-1');
+                    } else if (diff === 1) {
+                        item.classList.add('next-1');
+                    } else if (diff === -2) {
+                        item.classList.add('prev-2');
+                    } else if (diff === 2) {
+                        item.classList.add('next-2');
+                    } else if (diff < -2) {
+                        item.classList.add('hidden-left');
+                    } else {
+                        item.classList.add('hidden-right');
+                    }
+                });
+
+                // Handle variant carousels for carpet designs (main carousel only)
+                if (this.isMainCarpetCarousel) {
+                    const activeItem = this.items[this.currentIndex];
+                    const designId = activeItem?.getAttribute('data-design');
+                    const hasVariants = activeItem?.getAttribute('data-has-variants') === 'true';
+
+                    // Hide all variant carousels
+                    document.querySelectorAll('.variant-carousel').forEach(vc => {
+                        vc.style.display = 'none';
+                    });
+
+                    // Show variant carousel if this design has variants
+                    if (hasVariants && designId) {
+                        const variantCarousel = document.getElementById(`variants-${designId}`);
+                        if (variantCarousel) {
+                            variantCarousel.style.display = 'block';
+                        }
+                    }
+                }
+
+                // Update text if text container exists (skip for variant carousels)
+                if (this.textContainer && !this.isVariantCarousel) {
+                    const activeItem = this.items[this.currentIndex];
+                    const textId = activeItem?.getAttribute('data-text-id');
+
+                    if (textId) {
+                        const allTexts = this.textContainer.querySelectorAll('.carousel-text');
+                        allTexts.forEach(text => text.classList.remove('active'));
+
+                        const activeText = this.textContainer.querySelector(`#${textId}`);
+                        if (activeText) {
+                            activeText.classList.add('active');
+                        }
+                    }
+                }
+
+                // Handle video playback synchronization
+                this.items.forEach((item, index) => {
+                    const video = item.querySelector('video');
+                    const iframe = item.querySelector('iframe');
+                    if (index === this.currentIndex) {
+                        if (video) video.play().catch(e => console.log(e));
+                        if (iframe) iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                    } else {
+                        if (video) video.pause();
+                        if (iframe) iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                    }
+                });
+            }
+        }
+
+        document.querySelectorAll('.gallery-carousel').forEach(car => new GalleryCarousel(car));
+
+        // Lightbox Logic integration
+        const overlay = document.createElement('div');
+        overlay.className = 'lightbox-overlay';
+        const overlayImg = document.createElement('img');
+        overlayImg.className = 'lightbox-img';
+        overlay.appendChild(overlayImg);
+        document.body.appendChild(overlay);
+
+        document.querySelectorAll('.project-image').forEach(img => {
+            if (img.tagName.toLowerCase() !== 'img') return;
+            img.style.cursor = 'zoom-in';
+            img.addEventListener('click', (e) => {
+                const parentItem = img.closest('.carousel-item');
+                // Guard: Only launch if the clicked artwork's carousel container is visibly the central active one
+                if (parentItem && !parentItem.classList.contains('active')) return;
+
+                e.stopPropagation();
+                overlayImg.src = img.src;
+                overlay.classList.add('active');
+            });
+        });
+
+        overlay.addEventListener('click', () => {
+            overlay.classList.remove('active');
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') overlay.classList.remove('active');
+        });
+    </script>
+</body>
+
+</html>
